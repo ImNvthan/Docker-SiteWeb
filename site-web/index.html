@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Site Docker – Démonstration d'hébergement</title>
+    <meta name="description" content="Exemple de site statique hébergé dans un conteneur Docker.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="brand">Docker Web Demo</h1>
+        <nav class="nav">
+          <a href="#apropos">À propos</a>
+          <a href="#demarrage">Démarrage</a>
+          <a href="#conteneur">Conteneur</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <h2>Héberger un site statique avec Docker</h2>
+          <p>Cette page illustre un projet minimal pour servir un site web au sein d'un conteneur Docker.</p>
+          <div class="cta-row">
+            <a class="button primary" href="#demarrage">Démarrer</a>
+            <a class="button" href="#conteneur">Voir le conteneur</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="apropos" class="section">
+        <div class="container grid">
+          <article class="card">
+            <h3>Pourquoi Docker ?</h3>
+            <p>Docker garantit un environnement isolé, reproductible et portable. Idéal pour déployer un site statique rapidement.</p>
+          </article>
+          <article class="card">
+            <h3>Ce dépôt</h3>
+            <p>Il contient un <code>Dockerfile</code>, cette page <code>index.html</code> et une feuille de styles <code>style.ss</code>.</p>
+          </article>
+          <article class="card">
+            <h3>Serveur web</h3>
+            <p>Vous pouvez utiliser Nginx, Caddy ou Apache pour servir les fichiers statiques à l'intérieur du conteneur.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="demarrage" class="section alt">
+        <div class="container">
+          <h3>Lancer localement avec Docker</h3>
+          <ol class="steps">
+            <li>Construire l'image</li>
+            <li>Démarrer le conteneur en exposant le port HTTP</li>
+            <li>Ouvrir le navigateur et vérifier</li>
+          </ol>
+          <div class="code-block">
+            <pre><code>docker build -t site-docker-demo .
+docker run --rm -p 8080:80 --name site-web site-docker-demo
+
+# Ouvrir le navigateur : http://localhost:8080</code></pre>
+          </div>
+          <p class="note">Astuce : adaptez le <code>Dockerfile</code> selon le serveur choisi et le chemin des assets.</p>
+        </div>
+      </section>
+
+      <section id="conteneur" class="section">
+        <div class="container grid">
+          <article class="card">
+            <h3>Structure minimale</h3>
+            <ul>
+              <li><code>Dockerfile</code></li>
+              <li><code>index.html</code></li>
+              <li><code>style.ss</code></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Bonnes pratiques</h3>
+            <ul>
+              <li>Utiliser des images officielles légères (e.g. <code>nginx:alpine</code>).</li>
+              <li>Copier uniquement les fichiers nécessaires.</li>
+              <li>Exposer le port requis et définir la commande par défaut.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Validation</h3>
+            <p>Une fois lancé, surveillez les logs du conteneur et testez l'accessibilité depuis votre réseau si nécessaire.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span id="year"></span> Démo Docker – Site statique par ImNvthan</p>
+      </div>
+    </footer>
+
+    <script>
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
+
+
